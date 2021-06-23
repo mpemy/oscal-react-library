@@ -44,11 +44,8 @@ function getUriFromBackMatterByHref(backMatter, href) {
   // TODO - determine how to deal with multiple rlinks
   let profileImportUrl = foundResource.rlinks[0].href;
   // TODO this is incorrect in the profile (https://github.com/usnistgov/oscal-content/issues/59, https://easydynamics.atlassian.net/browse/EGRC-266)
-  if (
-    foundResource.rlinks[0]["media-type"].endsWith("json") &&
-    profileImportUrl.endsWith(".xml")
-  ) {
-    profileImportUrl = profileImportUrl.replace(".xml", ".json");
+  if (profileImportUrl.endsWith(".xml")) {
+    profileImportUrl = profileImportUrl.replace(/xml/g, "json");
   }
   return profileImportUrl;
 }
