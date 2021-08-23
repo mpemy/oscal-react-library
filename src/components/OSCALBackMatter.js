@@ -10,13 +10,6 @@ import DescriptionIcon from "@material-ui/icons/Description";
 import StyledTooltip from "./OSCALStyledTooltip";
 import { getAbsoluteUrl } from "./oscal-utils/OSCALBackMatterUtils";
 
-// TODO: Temporary fix for missing media type (https://github.com/GSA/fedramp-automation/issues/103)
-// Uses file extension instead
-const getURLMediaType = (url) => {
-  const lastUrlPath = url.split("//").pop().split("/").pop();
-  return lastUrlPath.match(/\.[A-Za-z]{3,4}($|\?)/) || "Unknown";
-};
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(2),
@@ -97,8 +90,7 @@ export default function OSCALBackMatter(props) {
   const classes = useStyles(props);
 
   const getMediaType = (rlink) =>
-    rlink["media-type"] ||
-    getURLMediaType(getAbsoluteUrl(rlink, props.parentUrl));
+    rlink["media-type"] || getAbsoluteUrl(rlink, props.parentUrl);
 
   const backMatterDisplay = (resource) => (
     <Grid item xs={3} key={resource.uuid}>
