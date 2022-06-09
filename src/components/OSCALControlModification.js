@@ -6,9 +6,17 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import LayersIcon from "@mui/icons-material/Layers";
 import { Typography } from "@mui/material";
+import flattenNestedPartsToList from "./oscal-utils/OSCALPartFlattenUtils";
 import StyledTooltip from "./OSCALStyledTooltip";
 
 const OSCALControlModificationsButton = styled(IconButton)(
@@ -28,27 +36,32 @@ function getAlterAddsOrRemovesDisplay(addsElements, addsLabel, controlPartId) {
     return null;
   }
 
-  // Handle adds; however, the parts attribute is ignored for
-  // now due to parsing complications.
-  const typographies = addsElements
+  const bodyRows = addsElements
+    .flatMap(flattenNestedPartsToList)
     .flatMap((element) => element.props ?? [])
     .map((item) => (
-      <Typography
-        color="textSecondary"
-        paragraph
-        variant="body1"
-        key={controlPartId}
-      >
-        Name: {item.name}, Value: {item.value}
-      </Typography>
+      <TableRow key={controlPartId}>
+        <TableCell>{item.name}</TableCell>
+        <TableCell>{item.value}</TableCell>
+        <TableCell>{item.remarks}</TableCell>
+      </TableRow>
     ));
-
-  const labelTypograhy = <Typography variant="h6">{addsLabel}</Typography>;
 
   return (
     <DialogContent dividers>
-      {labelTypograhy}
-      {typographies}
+      <Typography variant="h6">{addsLabel}</Typography>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Value</TableCell>
+              <TableCell>Remarks</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{bodyRows}</TableBody>
+        </Table>
+      </TableContainer>
     </DialogContent>
   );
 }
