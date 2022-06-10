@@ -42,8 +42,10 @@ function getAlterAddsOrRemovesDisplay(addsElements, addsLabel, controlPartId) {
     .map((item) => (
       <TableRow key={controlPartId}>
         <TableCell>{item.name}</TableCell>
+        <TableCell>{item.title}</TableCell>
         <TableCell>{item.value}</TableCell>
         <TableCell>{item.remarks}</TableCell>
+        <TableCell>{item.prose}</TableCell>
       </TableRow>
     ));
 
@@ -55,8 +57,10 @@ function getAlterAddsOrRemovesDisplay(addsElements, addsLabel, controlPartId) {
           <TableHead>
             <TableRow>
               <TableCell>Name</TableCell>
+              <TableCell>Title</TableCell>
               <TableCell>Value</TableCell>
               <TableCell>Remarks</TableCell>
+              <TableCell>Prose</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>{bodyRows}</TableBody>

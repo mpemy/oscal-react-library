@@ -26,4 +26,69 @@ describe("part flattening", () => {
     };
     expect(flattenNestedPartsToList(parent)).toContain(innerMostObject);
   });
+
+  it("should handle a real example from FedRAMP Moderate profile", async () => {
+    expect(
+      flattenNestedPartsToList({
+        position: "ending",
+        "by-id": "ac-2.10_smt",
+        parts: [
+          {
+            id: "ac-2.10_fr",
+            name: "item",
+            title: "AC-2 (10) Additional FedRAMP Requirements and Guidance",
+            parts: [
+              {
+                id: "ac-2.10_fr_smt.1",
+                name: "item",
+                props: [
+                  {
+                    name: "label",
+                    value: "Requirement:",
+                  },
+                ],
+                prose: "Required if shared/group accounts are deployed",
+              },
+            ],
+          },
+        ],
+      })
+    ).toEqual([
+      {
+        id: "ac-2.10_fr_smt.1",
+        name: "item",
+        props: [
+          {
+            name: "label",
+            value: "Requirement:",
+          },
+        ],
+        prose: "Required if shared/group accounts are deployed",
+      },
+      {
+        position: "ending",
+        "by-id": "ac-2.10_smt",
+        parts: [
+          {
+            id: "ac-2.10_fr",
+            name: "item",
+            title: "AC-2 (10) Additional FedRAMP Requirements and Guidance",
+            parts: [
+              {
+                id: "ac-2.10_fr_smt.1",
+                name: "item",
+                props: [
+                  {
+                    name: "label",
+                    value: "Requirement:",
+                  },
+                ],
+                prose: "Required if shared/group accounts are deployed",
+              },
+            ],
+          },
+        ],
+      },
+    ]);
+  });
 });
