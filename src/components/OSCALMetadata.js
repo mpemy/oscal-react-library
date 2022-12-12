@@ -71,14 +71,14 @@ const OSCALMetadataPartiesCardHolder = styled(Grid)(({ theme }) => ({
 const formatDate = (isoDate) => new Date(isoDate).toLocaleString();
 
 const TELEPHONE_ICON_MAPPING = {
-  home: <HomeIcon />,
-  mobile: <SmartphoneIcon />,
-  office: <BusinessIcon />,
+  home: <HomeIcon title="Home" />,
+  mobile: <SmartphoneIcon title="Mobile" />,
+  office: <BusinessIcon title="Office" />,
 };
 
 const ADDRESS_ICON_MAPPING = {
-  home: <HomeIcon />,
-  work: <BusinessIcon />,
+  home: <HomeIcon title="Home" />,
+  work: <BusinessIcon title="Work" />,
 };
 
 const UNKNOWN_TYPE_ICON = <HelpOutlineIcon />;
